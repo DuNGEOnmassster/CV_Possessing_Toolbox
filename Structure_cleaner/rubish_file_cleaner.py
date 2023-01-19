@@ -19,7 +19,7 @@ def del_files(path):
                     os.remove(os.path.join(root,name))         
                     print ("Delete File: " + os.path.join(root, name))
 
-            if clean_by_prefixes:
+            if clean_by_suffixes:
                 if name.endswith(suffixes):
                     os.remove(os.path.join(root,name))         
                     print ("Delete File: " + os.path.join(root, name))
