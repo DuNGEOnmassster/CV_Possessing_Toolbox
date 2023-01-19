@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
  
 image_path = "./test_dataset/"
-target_path = "./target_dataset/"
+target_path = "./target_dataset/mean_cut/"
 
  
 def cut_image(image, cut_w=128, cut_h=128):
@@ -25,8 +25,8 @@ def cut_image(image, cut_w=128, cut_h=128):
 
 
 def save_images(image_list, name):
-    target_dir = target_path + name.split(sep=".png")[0]
-    if not os.path.exist(target_dir):
+    target_dir = target_path + name.split(sep=".png")[0] + "/"
+    if not os.path.exists(target_dir):
         os.mkdir(target_dir)
 
     index = 1
