@@ -43,4 +43,5 @@ def possess():
             image_list = cut_image(image)
             save_images(image_list, name)
 
-possess()
+if __name__ == "__main__":
+    possess()
