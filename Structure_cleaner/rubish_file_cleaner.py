@@ -4,11 +4,11 @@ Rewrite the path, adjust the prefixes and suffixes as you wish
 
 import os
 
-image_path = "./target_dataset"
+image_path = "./"
 clean_by_prefixes = True
-clean_by_suffixes = True
+clean_by_suffixes = False
 
-prefixes = "._"
+prefixes = ".DS_S"
 suffixes = ".png"
 
 def del_files(path):
