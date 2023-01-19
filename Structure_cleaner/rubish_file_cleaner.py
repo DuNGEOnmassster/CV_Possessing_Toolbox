@@ -4,9 +4,9 @@ Rewrite the path, adjust the prefixes and suffixes as you wish
 
 import os
 
-image_path = "./test_dataset"
+image_path = "./target_dataset"
 clean_by_prefixes = True
-clean_by_suffixes = False
+clean_by_suffixes = True
 
 prefixes = "._"
 suffixes = ".png"
