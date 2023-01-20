@@ -26,9 +26,9 @@ def get_paired_lrsr():
                 lr_img = Image.open(root + name)
                 hr_img = Image.open(image_path + HR_path + HR_name)
                 print(f"lr size = {lr_img.size}, hr size = {hr_img.size}")
-            
-
-
+                lr_img = lr_img.resize((hr_img.size[0], hr_img.size[1]), Image.Resampling.BICUBIC)
+                print("After BICUBIC:")
+                print(f"lr size = {lr_img.size}, hr size = {hr_img.size}")
 
 if __name__ == "__main__":
     get_paired_lrsr()
