@@ -2,8 +2,6 @@ import torch
 import os
 import torchvision.transforms as transforms
 from PIL import Image
-import matplotlib.pyplot as plt
-import cv2
 
 image_path = "./test_dataset/"
 target_path = "./target_dataset/lr_resize/"
@@ -27,8 +25,10 @@ def get_paired_lrhr():
                 hr_img = Image.open(image_path + HR_path + HR_name)
                 lr_img = lr_img.resize((hr_img.size[0], hr_img.size[1]), Image.Resampling.BICUBIC)
                 # print("After BICUBIC:")
-                # print(f"lr size = {lr_img.size}, hr size = {hr_img.size}")
+                print(f"lr size = {lr_img.size}, hr size = {hr_img.size}")
                 paired_lrhr.append([lr_img, hr_img])
+                toTensor = transforms.ToTensor()
+                print(toTensor(lr_img).view(1,-1,lr_img.size[1],lr_img.size[0]).shape)
 
     return paired_lrhr
     
@@ -42,4 +42,4 @@ def save_paired(paired_lrhr):
 
 if __name__ == "__main__":
     paired_lrhr = get_paired_lrhr()
-    save_paired(paired_lrhr)
+    # save_paired(paired_lrhr)
