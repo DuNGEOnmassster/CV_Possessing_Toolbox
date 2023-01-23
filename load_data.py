@@ -11,7 +11,7 @@ import argparse
 def parse_args():
     parser = argparse.ArgumentParser(description="Image data loader")
 
-    parser.add_argument('--dataset_path', type=str, default='test_dataset/xxxx_HR ',
+    parser.add_argument('--dataset_path', type=str, default='/Users/normanz/Desktop/Github/CV_Possessing_Toolbox/test_dataset/xxxx_HR',
                         help='Declare the dataset path')
     parser.add_argument('--device', type=str, default="cuda",
                         help='Declare whether to use cuda')
@@ -79,4 +79,5 @@ def plot_images(images):
 
 if __name__ == "__main__":
     args = parse_args()
-    load_data(args)
+    train_dataset = load_data(args)
+    print(train_dataset.__len__())
