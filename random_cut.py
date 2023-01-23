@@ -6,6 +6,9 @@ import numpy as np
 image_path = "./test_dataset/"
 target_path = "./target_dataset/random_cut/"
 
+LR_path = "xxxx_LR/"
+HR_path = "xxxx_HR/"
+
 random_batch = 9
  
 def cut_image(image, cut_w=128, cut_h=128):
@@ -35,10 +38,12 @@ def save_images(image_list, name):
 
 
 def possess():
-    for root , dirs, files in os.walk(image_path):
+    for root , dirs, files in os.walk(image_path + HR_path):
         for name in files:
-            print("\n" + name)
+            print("\n" + root + name)
             image = Image.open(root + name)
             image_list = cut_image(image)
             save_images(image_list, name)
 
+if __name__ == "__main__":
+    possess()
