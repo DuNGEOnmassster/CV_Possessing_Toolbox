@@ -17,6 +17,14 @@ def parse_args():
                         help="declare site dataset link")
     parser.add_argument('--batch_size', type=int, default=2,
                         help='Declare batch size for training')
+    parser.add_argument("--train_split", type=float, default=0.8,
+                        help="declare proportion of train split in dataset")
+    parser.add_argument("--valid_split", type=float, default=0.1,
+                        help="declare proportion of valid split in dataset")
+    parser.add_argument("--test_split", type=float, default=0.1,
+                        help="declare proportion of test split in dataset")
+    parser.add_argument("--random_seed", type=int, default=3407,
+                        help="use this magical random seed 3407")
 
     return parser.parse_args()
 
@@ -40,8 +48,8 @@ def get_dataloader(args):
     if not args.local_dataset:
         os.system(f"wget -P {args.dataset_path} {args.dataset_link}")
 
-    train_dataset = torchvision.datasets.ImageFolder(args.dataset_path, transform=data_transform["train"], target_transform=transform_label)
-    test_dataset = torchvision.datasets.ImageFolder(args.dataset_path, transform=data_transform["val"], target_transform=transform_label)
+    dataset = torchvision.datasets.ImageFolder(args.dataset_path, transform=data_transform["train"], target_transform=transform_label)
+    
     
     print(f"length of trainning dataset: {len(train_dataset)}")
     print(f"length of testing dataset: {len(test_dataset)}")
