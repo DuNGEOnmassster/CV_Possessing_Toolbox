@@ -11,7 +11,7 @@ def parse_args():
 
     parser.add_argument("--local_dataset", type=bool, default=True,
                         help="declare dataset from local or from site")
-    parser.add_argument("--dataset_path", type=str, default='/Users/normanz/Desktop/Github/CV_Possessing_Toolbox/test_dataset/xxxx_HR',
+    parser.add_argument("--dataset_path", type=str, default='/Users/normanz/Desktop/Github/CV_Possessing_Toolbox/test_dataset',
                         help="declare local dataset path")
     parser.add_argument("--dataset_link", type=str, required=False,
                         help="declare site dataset link")
@@ -19,6 +19,10 @@ def parse_args():
                         help='Declare batch size for training')
 
     return parser.parse_args()
+
+
+def transform_label(x):
+    return torch.tensor([x]).float()
 
 
 def get_dataloader(args):
@@ -31,12 +35,13 @@ def get_dataloader(args):
                                    transforms.CenterCrop(224),
                                    transforms.ToTensor(),
                                    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])}
+
     # Get Dataset
     if not args.local_dataset:
         os.system(f"wget -P {args.dataset_path} {args.dataset_link}")
 
-    train_dataset = torchvision.datasets.ImageFolder(args.dataset_path, train=True, transform=data_transform["train"])
-    test_dataset = torchvision.datasets.ImageFolder(args.dataset_path, train=False, transform=data_transform["val"])
+    train_dataset = torchvision.datasets.ImageFolder(args.dataset_path, transform=data_transform["train"], target_transform=transform_label)
+    test_dataset = torchvision.datasets.ImageFolder(args.dataset_path, transform=data_transform["val"], target_transform=transform_label)
     
     print(f"length of trainning dataset: {len(train_dataset)}")
     print(f"length of testing dataset: {len(test_dataset)}")
@@ -48,3 +53,5 @@ def get_dataloader(args):
 if __name__ == "__main__":
     args = parse_args()
     train_dataloader,test_dataloader = get_dataloader(args)
+    for target, label in train_dataloader:
+        print(target.shape, label.shape)
