@@ -61,14 +61,20 @@ def load_data(args):
     HR_data = ImagePaths(args.dataset_path + args.HR_path, size=256)
     LR_data = ImagePaths(args.dataset_path + args.LR_path, size=256)
     print(f"len HR data: {len(HR_data)}, len LR data: {len(LR_data)}")
-    train_loader = DataLoader(HR_data+LR_data, batch_size=args.batch_size, shuffle=False)
-    return train_loader
+    HR_loader = DataLoader(HR_data, batch_size=args.batch_size, shuffle=False)
+    LR_loader = DataLoader(LR_data, batch_size=args.batch_size, shuffle=False)
+    return HR_loader, LR_loader
 
 if __name__ == "__main__":
     args = parse_args()
-    train_dataset = load_data(args)
-    i = 1
-    for data in train_dataset:
-        print(data.shape)
-        vutils.save_image(data, os.path.join(args.save_path, f"{i}.jpg"))
-        i += 1
+    HR_loader, LR_loader = load_data(args)
+    num = 1
+    for i, data in enumerate(zip(HR_loader, LR_loader)):
+        print((data[1][0].shape))
+        # vutils.save_image(data[0], os.path.join(args.save_path, f"{num}.jpg"))
+        num += 1
+    # i = 1
+    # for data in train_dataset:
+    #     print(data.shape)
+    #     vutils.save_image(data, os.path.join(args.save_path, f"{i}.jpg"))
+    #     i += 1
