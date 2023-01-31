@@ -2,8 +2,10 @@ import os
 import albumentations
 import numpy as np
 import torch.nn as nn
+import torch
 from PIL import Image
 from torch.utils.data import Dataset, DataLoader
+from torchvision import utils as vutils
 import matplotlib.pyplot as plt
 import argparse
 
@@ -17,6 +19,8 @@ def parse_args():
                         help='Declare LR path in dataset')
     parser.add_argument('--HR_path', type=str, default='xxxx_HR',
                         help='Declare the dataset path')
+    parser.add_argument("--save_path", type=str, default="/Users/normanz/Desktop/Github/CV_Possessing_Toolbox/target_dataset/paired_sr",
+                        help="Declare save path to check whether lr&hr images are paired")
     parser.add_argument('--device', type=str, default="cuda",
                         help='Declare whether to use cuda')
     parser.add_argument('--batch-size', type=int, default=2,
@@ -63,6 +67,8 @@ def load_data(args):
 if __name__ == "__main__":
     args = parse_args()
     train_dataset = load_data(args)
+    i = 1
     for data in train_dataset:
-        # plot_images(data[0])
         print(data.shape)
+        vutils.save_image(data, os.path.join(args.save_path, f"{i}.jpg"))
+        i += 1
