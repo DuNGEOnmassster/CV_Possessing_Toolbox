@@ -23,7 +23,7 @@ def parse_args():
                         help="Declare save path to check whether lr&hr images are paired")
     parser.add_argument('--device', type=str, default="cuda",
                         help='Declare whether to use cuda')
-    parser.add_argument('--batch-size', type=int, default=2,
+    parser.add_argument('--batch_size', type=int, default=2,
                         help='Declare batch size for training')
 
     return parser.parse_args()
@@ -68,13 +68,11 @@ def load_data(args):
 if __name__ == "__main__":
     args = parse_args()
     HR_loader, LR_loader = load_data(args)
-    num = 1
+
     for i, data in enumerate(zip(HR_loader, LR_loader)):
-        print((data[1][0].shape))
-        # vutils.save_image(data[0], os.path.join(args.save_path, f"{num}.jpg"))
-        num += 1
-    # i = 1
-    # for data in train_dataset:
-    #     print(data.shape)
-    #     vutils.save_image(data, os.path.join(args.save_path, f"{i}.jpg"))
-    #     i += 1
+        HR_data = data[0]
+        LR_data = data[1]
+        print(f"HR data: {HR_data.shape}, LR data: {LR_data.shape}")
+        for batch in range(len(HR_data)):
+            vutils.save_image(HR_data, os.path.join(args.save_path, f"{i}_{batch}_HR.jpg"))
+            vutils.save_image(LR_data, os.path.join(args.save_path, f"{i}_{batch}_LR.jpg"))
