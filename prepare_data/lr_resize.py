@@ -4,8 +4,6 @@ import torchvision.transforms as transforms
 from PIL import Image
 import torch.nn.functional as F
 
-n = torch.nn.MSELoss()
-F.interpolate()
 
 image_path = "./test_dataset/"
 target_path = "./target_dataset/lr_resize/"
