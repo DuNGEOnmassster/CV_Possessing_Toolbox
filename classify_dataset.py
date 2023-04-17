@@ -14,14 +14,13 @@ def save_lrhr(lr_imgs, hr_imgs, root):
     lr_path = os.path.join(root, "LR")
     hr_path = os.path.join(root, "HR")
     print(lr_path, hr_path)
+    if not os.path.exists(lr_path):
+        os.mkdir(lr_path)
+    if not os.path.exists(hr_path):
+        os.mkdir(hr_path)
     for item in range(len(lr_imgs)):
         lr_save_path = os.path.join(lr_path,lr_imgs[item][1])
         hr_save_path = os.path.join(hr_path,hr_imgs[item][1])
-        if not os.path.exists(lr_save_path):
-            os.mkdir(lr_save_path)
-        if not os.path.exists(hr_save_path):
-            os.mkdir(hr_save_path)
-
         # print(f"lr: {os.path.join(lr_path,lr_imgs[item][1])}, hr: {os.path.join(hr_path,hr_imgs[item][1])}")
         lr_imgs[item][0].save(lr_save_path, 'PNG')
         hr_imgs[item][0].save(hr_save_path, 'PNG')
@@ -54,7 +53,6 @@ def get_saved_lrhr(dataset_path):
                 # print(toTensor(lr_img).view(1,-1,lr_img.size[1],lr_img.size[0]).shape)
         if save_flag:
             save_lrhr(lr_imgs, hr_imgs, root)
-
 
 
 if __name__ == "__main__":
